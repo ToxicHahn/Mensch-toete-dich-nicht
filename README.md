@@ -12,7 +12,8 @@ Mensch ärgere dich nicht on steroids
 - Simon
   - [ ] OOA bzw OOD
 - Niklas
-  - [ ] OOA bzw OOD
+  - [ ] OOA bzw OOD 
+  - [ ] Erste Designs für Spielerfiguren, 
 - Adrian
   - [ ] Erste Klassen anlegen nach UML
         
