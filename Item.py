@@ -1,10 +1,9 @@
 class Item():
-    def __init__(self, name, price, effekt, beschreibung):
+    def __init__(self, name, preis, effekt, beschreibung):
         self._name = name
-        self._price = price
+        self._price = preis
         self._effekt = effekt
         self._beschreibung = beschreibung        
-
     def holeName(self):
         """Gibt name zurueck."""
         return self._name
@@ -13,13 +12,13 @@ class Item():
         """Setzt name."""
         self._name = value
 
-    def holePrice(self):
-        """Gibt price zurueck."""
-        return self._price
+    def holePreis(self):
+        """Gibt preis zurueck."""
+        return self._preis
 
-    def setzePrice(self, value):
-        """Setzt price."""
-        self._price = value
+    def setzePreis(self, value):
+        """Setzt preis."""
+        self._preis = value
 
     def holeEffekt(self):
         """Gibt effekt zurueck."""
