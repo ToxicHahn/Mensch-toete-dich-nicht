@@ -1,7 +1,5 @@
 from Feld import *
-
 from random import * 
-
 class Spielfeld():
     def __init__(self, n):
         self.SFeld = []
