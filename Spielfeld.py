@@ -4,7 +4,6 @@ class Spielfeld():
     def __init__(self, n):
         self.SFeld = []
         self.erstelleFeld(n)
-        self.Feld=Feld()
     
     def erstelleFeld(self, n):
         """Erstellt ein Feld der geforderten Groesse"""
