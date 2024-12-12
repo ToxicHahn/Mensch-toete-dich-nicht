@@ -3,13 +3,15 @@ from random import *
 
 class Spielfeld():
     def __init__(self, n: int):
+        def erstelleFeld(self, n: int):
+            """Erstellt ein Feld der geforderten Groesse"""
+            for i in range(n):
+                self._SFeld.append(Feld())
+
         self._SFeld = []
-        self.erstelleFeld(n)
+        erstelleFeld(n)
     
-    def erstelleFeld(self, n: int):
-        """Erstellt ein Feld der geforderten Groesse"""
-        for i in range(n):
-            self._SFeld.append(Feld())
+
     
     def EffekteEinfuegen(self, l: list[tuple[int, str]]):
         """Fuegt die Effekte in die Felder des Spielfelds ein"""
