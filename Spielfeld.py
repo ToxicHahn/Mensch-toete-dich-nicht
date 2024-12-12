@@ -1,4 +1,4 @@
-#import * from Feld 
+from Feld import *
 
 from random import * 
 
