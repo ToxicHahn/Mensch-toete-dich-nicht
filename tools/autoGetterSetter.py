@@ -1,8 +1,6 @@
-import tkinter as tk
-from tkinter import filedialog, messagebox
-import inspect
+from tkinter import Tk, filedialog, messagebox, Frame, Button, Label
+from tkinter import ttk
 import ast
-
 
 def generate_getters_setters_code(cls_name, init_params):
     # Code für Getter und Setter im camelCase-Stil generieren
@@ -83,12 +81,38 @@ def open_file():
         process_python_file(file_path)
 
 def create_gui():
-    window = tk.Tk()
+    window = Tk()
     window.title("Getter und Setter Generator")
+    window.geometry("400x250")
+    window.configure(bg="#f0f0f0")  # Light background color
+
+    # Set modern fonts
+    font = ("Arial", 12)
+
+    # Frame for the content
+    frame = ttk.Frame(window, padding="20")
+    frame.pack(fill="both", expand=True)
+
+    # Title label
+    title_label = ttk.Label(frame, text="Python Getter & Setter Generator", font=("Arial", 16, "bold"), anchor="center")
+    title_label.pack(pady=10)
 
     # Button zum Öffnen einer Datei
-    open_button = tk.Button(window, text="Python-Datei Öffnen", command=open_file)
-    open_button.pack(pady=20)
+    open_button = ttk.Button(frame, text="Python-Datei Öffnen", command=open_file, style="TButton")
+    open_button.pack(pady=20, ipadx=10, ipady=5)
+
+    # Set a modern button style
+    style = ttk.Style()
+    style.configure("TButton", 
+                    background="#4CAF50", 
+                    foreground="black", 
+                    font=("Arial", 12, "bold"),
+                    padding=10)
+
+    # Define the hover effect (button state)
+    style.map("TButton",
+              foreground=[('pressed', 'black'), ('active', 'black')],
+              background=[('pressed', '#45a049'), ('active', '#45a049')])
 
     window.mainloop()
 

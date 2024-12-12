@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import filedialog, messagebox
+from tkinter import filedialog, messagebox, ttk
 
 def count_lines_without_comments(file_path):
     total_lines = 0
@@ -22,7 +22,6 @@ def count_lines_without_comments(file_path):
                     in_docstring = False
                 continue
 
-            
             # Skip lines within docstrings
             if in_docstring:
                 continue
@@ -32,7 +31,6 @@ def count_lines_without_comments(file_path):
                 continue
             
             # Count the line if it's not a comment or docstring
-            print(line)
             total_lines += 1
 
     return total_lines
@@ -57,16 +55,40 @@ def open_file():
 # Tkinter-Fenster einrichten
 root = tk.Tk()
 root.title("Python Code Zeilen Zähler")
+root.geometry("400x250")  # Setting a fixed window size
+root.configure(bg="#f4f4f9")  # Light background color for modern look
 
-# Layout
-frame = tk.Frame(root, padx=20, pady=20)
-frame.pack(padx=10, pady=10)
+# Set modern fonts and styles
+font = ("Arial", 12)
 
-open_button = tk.Button(frame, text="Python-Datei auswählen", command=open_file)
-open_button.pack(pady=10)
+# Frame for the content
+frame = ttk.Frame(root, padding="20")
+frame.pack(fill="both", expand=True)
 
-result_label = tk.Label(frame, text="Anzahl der Codezeilen wird hier angezeigt.", wraplength=300)
+# Title label
+title_label = ttk.Label(frame, text="Zähler für Codezeilen", font=("Arial", 16, "bold"), anchor="center")
+title_label.pack(pady=10)
+
+# Button zum Öffnen einer Datei
+open_button = ttk.Button(frame, text="Python-Datei auswählen", command=open_file, style="TButton")
+open_button.pack(pady=10, ipadx=10, ipady=5)
+
+# Result label for displaying the number of code lines
+result_label = ttk.Label(frame, text="Anzahl der Codezeilen wird hier angezeigt.", wraplength=300, font=font)
 result_label.pack()
+
+# Set a modern button style
+style = ttk.Style()
+style.configure("TButton", 
+                background="#4CAF50", 
+                foreground="black", 
+                font=("Arial", 12, "bold"),
+                padding=10)
+
+# Define the hover effect (button state)
+style.map("TButton",
+          foreground=[('pressed', 'black'), ('active', 'black')],
+          background=[('pressed', '#45a049'), ('active', '#45a049')])
 
 # GUI starten
 root.mainloop()
