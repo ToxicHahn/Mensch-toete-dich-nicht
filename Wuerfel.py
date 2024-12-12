@@ -1,4 +1,8 @@
 import random
 class Wuerfel():
+    def __init__(self):
+        self._zahl:int = None
     def rollen(self):
-        return random.randint(1,6)
+        self._zahl = random.randint(1,6)
+    def holeZahl(self):
+        return self._zahl
