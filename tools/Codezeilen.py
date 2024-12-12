@@ -13,8 +13,8 @@ def count_lines_without_comments(file_path):
                 continue
             
             # Check for triple quotes (docstring start or end)
-            if stripped.startswith('"""') or stripped.startswith("'''"):
-                if stripped.endswith('"""') or stripped.startswith("'''"):
+            if (stripped.startswith('"""') or stripped.startswith("'''")) and not stripped[3]==")":
+                if stripped.endswith('"""') or stripped.endswith("'''"):
                     continue
                 if not in_docstring:  # Starting a docstring
                     in_docstring = True
@@ -31,6 +31,7 @@ def count_lines_without_comments(file_path):
                 continue
             
             # Count the line if it's not a comment or docstring
+            print(line)
             total_lines += 1
 
     return total_lines
