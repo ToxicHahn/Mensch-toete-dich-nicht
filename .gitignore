@@ -1,6 +1,7 @@
 #Temporary files of currently opened files
 ~*
 
+private/
 #VSC workspace
 *.code-workspace
 
