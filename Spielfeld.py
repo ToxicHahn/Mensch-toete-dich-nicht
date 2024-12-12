@@ -1,6 +1,5 @@
 from Feld import *
 from random import * 
-from typing import List, Tuple
 
 class Spielfeld():
     def __init__(self, n: int):
@@ -12,7 +11,7 @@ class Spielfeld():
         for i in range(n):
             self.SFeld.append(Feld())
     
-    def EffekteEinfuegen(self, l: list[Tuple[int, str]]):
+    def EffekteEinfuegen(self, l: list[tuple[int, str]]):
         """Fuegt die Effekte in die Felder des Spielfelds ein"""
         for (i,e) in l:
             self.SFeld[i].setzeEffekt(e)
