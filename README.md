@@ -6,16 +6,16 @@ Mensch ärgere dich nicht on steroids
 - Jonas
   - [ ] Erste Klassen anlegen nach UML
 - Jannis
-  - [x] UML-Diagramm
+  - [ ] OOA bzw OOD
 - Emilio
-  - [x] UML-Diagramm
+  - [ ] OOA bzw OOD
 - Simon
   - [ ] OOA bzw OOD
 - Niklas
   - [ ] OOA bzw OOD 
   - [ ] Erste Designs für Spielerfiguren, 
 - Adrian
-  - [x] Erste Klassen anlegen nach UML
+  - [] OOA bzw OOD
         
 
         
