@@ -1,6 +1,6 @@
 #Temporary files of currently opened files
 ~*
-
+.vscode
 private/
 #VSC workspace
 *.code-workspace
