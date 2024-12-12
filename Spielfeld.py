@@ -28,7 +28,7 @@ class Spielfeld():
         """Gibt einen zufaelligen Effekt zurueck"""
         return self.gibEffekt(randint(0,len(self.E)-1))
 
-    def randomEffekteErstellen(self, n):
+    def randomEffekteErstellen(self, n: int = 0):
         """Erstellt zufaellige Effekte fuer das Spielfeld und fuegt sie ein"""
         if not n:
             n = randint(0,len(self.SFeld)-1)
