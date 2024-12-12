@@ -1,0 +1,34 @@
+<GameBoard>:
+    canvas:
+        Rectangle:
+            source: "assets/board.png"
+            size: self.size
+            pos: self.pos
+
+    GridLayout:
+        id: field_grid
+        cols: 30
+        rows: 30
+        size_hint_y: None
+        height: self.minimum_height
+        padding: 10
+
+        # Beispiel für ein Spielfeld
+        Button:
+            background_normal: "assets/field.png"
+            background_down: "assets/field.png"
+            size_hint: None, None
+            size: 50, 50
+        # Weitere Felder können hier hinzugefügt werden
+        Button:
+            background_normal: "assets/field.png"
+            background_down: "assets/field.png"
+            size_hint: None, None
+            size: 50, 50
+
+<PlayerToken>:
+    canvas:
+        Rectangle:
+            source: "assets/token.png"
+            size: self.size
+            pos: self.pos
