@@ -15,7 +15,7 @@ Mensch ärgere dich nicht on steroids
   - [ ] OOA bzw OOD 
   - [ ] Erste Designs für Spielerfiguren, 
 - Adrian
-  - [] OOA bzw OOD
+  - [ ] OOA bzw OOD
         
 
         
