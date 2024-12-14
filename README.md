@@ -6,7 +6,7 @@ Mensch ärgere dich nicht on steroids
 - Jonas
   - [ ] Erste Klassen anlegen nach UML
 - Jannis
-  - [x] OOA bzw OOD
+  - [ ] OOA bzw OOD
 - Emilio
   - [ ] OOA bzw OOD
 - Simon
