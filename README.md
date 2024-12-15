@@ -10,9 +10,9 @@ Mensch ärgere dich nicht on steroids
 - Emilio
   - [ ] OOA bzw OOD
 - Simon
-  - [ ] OOA bzw OOD
+  - [x] OOA bzw OOD
 - Niklas
-  - [ ] OOA bzw OOD 
+  - [x] OOA bzw OOD 
   - [ ] Erste Designs für Spielerfiguren, 
 - Adrian
   - [ ] OOA bzw OOD
