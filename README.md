@@ -18,6 +18,7 @@ Mensch ärgere dich nicht on steroids
   - [x] OOA bzw OOD 
   - [ ] Erste Designs für Spielerfiguren,
   - [x] Regelwerk-GUI
+  - [ ] Chatroom-GUI
 - Adrian
   - [x] OOA bzw OOD
         
