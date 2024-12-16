@@ -8,7 +8,7 @@ Mensch ärgere dich nicht on steroids
 - Jannis
   - [x] OOA bzw OOD
 - Emilio
-  - [ ] OOA bzw OOD
+  - [x] OOA bzw OOD
 - Simon
   - [x] OOA bzw OOD
 - Niklas
