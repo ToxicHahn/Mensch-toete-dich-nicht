@@ -8,6 +8,7 @@ Mensch ärgere dich nicht on steroids
 - Jannis
   - [x] OOA bzw OOD
   - [ ] Shop-GUI
+  - [ ] Shop
 - Emilio
   - [x] OOA bzw OOD
   - [ ] Spielfeld-GUI
