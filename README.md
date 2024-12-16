@@ -17,7 +17,7 @@ Mensch ärgere dich nicht on steroids
 - Niklas
   - [x] OOA bzw OOD 
   - [ ] Erste Designs für Spielerfiguren,
-  - [ ] Regelwerk-GUI
+  - [x] Regelwerk-GUI
 - Adrian
   - [x] OOA bzw OOD
         
