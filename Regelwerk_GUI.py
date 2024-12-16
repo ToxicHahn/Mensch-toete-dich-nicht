@@ -7,7 +7,7 @@ class MainWindow(QMainWindow):
         super().__init__()
 
         # Fenster-Eigenschaften
-        self.setWindowTitle("Regelwerk - Mensch ärgere dich nicht")
+        self.setWindowTitle("Regelwerk - Mensch toete dich nicht")
         self.setGeometry(100, 100, 800, 600)
 
         # Hauptlayout
@@ -17,7 +17,7 @@ class MainWindow(QMainWindow):
         self.main_layout.setContentsMargins(20, 20, 20, 20)
 
         # Titel
-        self.title_label = QLabel("Mensch ärgere dich nicht - Regelwerk", self)
+        self.title_label = QLabel("Mensch toete dich nicht - Regelwerk", self)
         self.title_label.setAlignment(Qt.AlignCenter)
         self.title_label.setFont(QFont("Arial", 24, QFont.Bold))
         self.main_layout.addWidget(self.title_label)
