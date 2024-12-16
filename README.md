@@ -4,7 +4,7 @@ Mensch ärgere dich nicht on steroids
 
 ## Current To-Dos
 - Jonas
-  - [ ] Erste Klassen anlegen nach UML
+  - [x] Erste Klassen anlegen nach UML
 - Jannis
   - [x] OOA bzw OOD
   - [ ] Shop-GUI
