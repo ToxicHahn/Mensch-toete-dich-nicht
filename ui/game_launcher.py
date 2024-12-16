@@ -71,13 +71,17 @@ class MainWindow(QMainWindow):
         settings_action.triggered.connect(self.toggle_dark_mode)
         settings_menu.addAction(settings_action)
 
+        settings_action_ = QAction('Toggle White Mode', self)
+        settings_action_.triggered.connect(self.toggle_white_mode)
+        settings_menu.addAction(settings_action_)
+
     def toggle_dark_mode(self):
         """Wechsel zwischen Light und Dark Mode"""
         dark_palette = QPalette()
         dark_palette.setColor(QPalette.Window, QColor(28, 28, 30))
-        dark_palette.setColor(QPalette.WindowText, Qt.white)
+        dark_palette.setColor(QPalette.WindowText, Qt.black)
         dark_palette.setColor(QPalette.Button, QColor(53, 53, 53))
-        dark_palette.setColor(QPalette.ButtonText, Qt.white)
+        dark_palette.setColor(QPalette.ButtonText, Qt.black)
         dark_palette.setColor(QPalette.Base, QColor(42, 42, 42))
         dark_palette.setColor(QPalette.AlternateBase, QColor(66, 66, 66))
         dark_palette.setColor(QPalette.ToolTipBase, Qt.white)
@@ -86,6 +90,21 @@ class MainWindow(QMainWindow):
         dark_palette.setColor(QPalette.BrightText, Qt.red)
 
         self.setPalette(dark_palette)
+
+    def toggle_white_mode(self):
+        white_palette = QPalette()
+        white_palette.setColor(QPalette.Window, QColor(255, 255, 255))
+        white_palette.setColor(QPalette.WindowText, Qt.black)
+        white_palette.setColor(QPalette.Button, QColor(240, 240, 240))
+        white_palette.setColor(QPalette.ButtonText, Qt.black)
+        white_palette.setColor(QPalette.Base, QColor(255, 255, 255))
+        white_palette.setColor(QPalette.AlternateBase, QColor(240, 240, 240))
+        white_palette.setColor(QPalette.ToolTipBase, Qt.black)
+        white_palette.setColor(QPalette.ToolTipText, Qt.black)
+        white_palette.setColor(QPalette.Text, Qt.black)
+        white_palette.setColor(QPalette.BrightText, Qt.red)
+
+        self.setPalette(white_palette)
 
     def on_button_click(self):
         sender = self.sender()
