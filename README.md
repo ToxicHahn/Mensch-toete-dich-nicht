@@ -9,17 +9,24 @@ Mensch ärgere dich nicht on steroids
   - [x] OOA bzw OOD
   - [ ] Shop-GUI
   - [ ] Shop
+  - [ ] Database (Simon)
 - Emilio
   - [x] OOA bzw OOD
   - [ ] Spielfeld-GUI
+  - [ ] Spielfeld Klasse
+  - [ ] Figuren Klasse
 - Simon
   - [x] OOA bzw OOD
   - [ ] Inventar-GUI
+  - [ ] Inventar-Klasse
+  - [ ] Database (Jannis)
+  - [ ] GUI für den JOIN
 - Niklas
   - [x] OOA bzw OOD 
   - [ ] Erste Designs für Spielerfiguren,
   - [x] Regelwerk-GUI
   - [ ] Chatroom-GUI
+  - [ ] Chatroom Klasse
 - Adrian
   - [x] OOA bzw OOD
         
