@@ -1,10 +1,14 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QVBoxLayout, QWidget, QMenuBar, QAction, QStatusBar, QHBoxLayout, QLabel
+from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QScrollArea, QPushButton, QStatusBar, QMenuBar, QAction
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QColor, QPalette, QFont
+from PyQt5.QtGui import QPalette, QColor, QFont
+from Regelwerk_GUI import MainWindow as RegelwerkWindow  
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+
+    
+        self.regelwerk_fenster = None 
 
         # Fenster-Eigenschaften
         self.setWindowTitle("Mensch ärgere dich nicht! Launcher")
@@ -14,7 +18,7 @@ class MainWindow(QMainWindow):
         self.centralwidget = QWidget(self)
         self.setCentralWidget(self.centralwidget)
         self.central_layout = QVBoxLayout(self.centralwidget)
-        self.central_layout.setContentsMargins(30, 30, 30, 30)  # Abstand zum Rand
+        self.central_layout.setContentsMargins(30, 30, 30, 30)
 
         # Header (Titelbereich)
         self.header = QLabel("Mensch ärgere dich nicht!", self)
@@ -31,6 +35,7 @@ class MainWindow(QMainWindow):
         self.create_button("Spiel hosten")
         self.create_button("Account erstellen")
         self.create_button("Login")
+        self.create_button("Regelwerk anzeigen")  
 
         # Menüleiste erstellen
         self.create_menu()
@@ -61,7 +66,11 @@ class MainWindow(QMainWindow):
         """)
         button.setMinimumHeight(50)
         self.central_layout.addWidget(button)
-        button.clicked.connect(self.on_button_click)
+
+        if text == "Regelwerk anzeigen":
+            button.clicked.connect(self.open_regelwerk)  
+        else:
+            button.clicked.connect(self.on_button_click)
 
     def create_menu(self):
         menubar = self.menuBar()
@@ -71,13 +80,17 @@ class MainWindow(QMainWindow):
         settings_action.triggered.connect(self.toggle_dark_mode)
         settings_menu.addAction(settings_action)
 
+        settings_action_ = QAction('Toggle White Mode', self)
+        settings_action_.triggered.connect(self.toggle_white_mode)
+        settings_menu.addAction(settings_action_)
+
     def toggle_dark_mode(self):
         """Wechsel zwischen Light und Dark Mode"""
         dark_palette = QPalette()
         dark_palette.setColor(QPalette.Window, QColor(28, 28, 30))
-        dark_palette.setColor(QPalette.WindowText, Qt.white)
+        dark_palette.setColor(QPalette.WindowText, Qt.black)
         dark_palette.setColor(QPalette.Button, QColor(53, 53, 53))
-        dark_palette.setColor(QPalette.ButtonText, Qt.white)
+        dark_palette.setColor(QPalette.ButtonText, Qt.black)
         dark_palette.setColor(QPalette.Base, QColor(42, 42, 42))
         dark_palette.setColor(QPalette.AlternateBase, QColor(66, 66, 66))
         dark_palette.setColor(QPalette.ToolTipBase, Qt.white)
@@ -87,9 +100,32 @@ class MainWindow(QMainWindow):
 
         self.setPalette(dark_palette)
 
+    def toggle_white_mode(self):
+        white_palette = QPalette()
+        white_palette.setColor(QPalette.Window, QColor(255, 255, 255))
+        white_palette.setColor(QPalette.WindowText, Qt.black)
+        white_palette.setColor(QPalette.Button, QColor(240, 240, 240))
+        white_palette.setColor(QPalette.ButtonText, Qt.black)
+        white_palette.setColor(QPalette.Base, QColor(255, 255, 255))
+        white_palette.setColor(QPalette.AlternateBase, QColor(240, 240, 240))
+        white_palette.setColor(QPalette.ToolTipBase, Qt.black)
+        white_palette.setColor(QPalette.ToolTipText, Qt.black)
+        white_palette.setColor(QPalette.Text, Qt.black)
+        white_palette.setColor(QPalette.BrightText, Qt.red)
+
+        self.setPalette(white_palette)
+
     def on_button_click(self):
         sender = self.sender()
         self.statusbar.showMessage(f"{sender.text()} Button Clicked")
+
+    def open_regelwerk(self):
+        if self.regelwerk_fenster is None or not self.regelwerk_fenster.isVisible():  
+            self.regelwerk_fenster = RegelwerkWindow()  
+            self.regelwerk_fenster.show()  
+
+    def reset_regelwerk(self):
+        self.regelwerk_fenster = None
 
 # Hauptfunktion
 if __name__ == "__main__":

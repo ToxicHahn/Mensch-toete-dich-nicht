@@ -4,18 +4,36 @@ Mensch ärgere dich nicht on steroids
 
 ## Current To-Dos
 - Jonas
-  - [ ] Erste Klassen anlegen nach UML
+  - [x] Erste Klassen anlegen nach UML
 - Jannis
-  - [ ] OOA bzw OOD
+  - [x] OOA bzw OOD
+  - [ ] Shop-GUI
+  - [ ] Shop
+  - [ ] Database (Simon)
+  - [ ] pause menü
+  - [ ] start menü
+  - [ ] Bots KI (Niklas)
 - Emilio
-  - [ ] OOA bzw OOD
+  - [x] OOA bzw OOD
+  - [ ] Spielfeld-GUI
+  - [ ] Spielfeld Klasse
+  - [ ] Figuren Klasse
 - Simon
-  - [ ] OOA bzw OOD
+  - [x] OOA bzw OOD
+  - [X] Inventar-GUI
+  - [ ] Inventar-Klasse
+  - [ ] Database (Jannis)
+  - [ ] GUI für den JOIN
 - Niklas
-  - [ ] OOA bzw OOD 
-  - [ ] Erste Designs für Spielerfiguren, 
+  - [x] OOA bzw OOD 
+  - [ ] Erste Designs für
+  - [ ] Spielerfiguren,
+  - [x] Regelwerk-GUI
+  - [ ] Chatroom-GUI
+  - [ ] Chatroom Klasse
+  - [ ] bots KI (Jannis)
 - Adrian
-  - [ ] OOA bzw OOD
+  - [x] OOA bzw OOD
         
 
 ## Roadmap
