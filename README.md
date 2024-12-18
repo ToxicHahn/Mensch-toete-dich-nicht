@@ -9,7 +9,7 @@ Mensch ärgere dich nicht on steroids
   - [x] OOA bzw OOD
   - [ ] Shop-GUI
   - [ ] Shop
-  - [ ] Database (Simon)
+  - [x] Database (Simon)
   - [ ] pause menü
   - [ ] start menü
   - [ ] Bots KI (Niklas)
@@ -22,7 +22,7 @@ Mensch ärgere dich nicht on steroids
   - [x] OOA bzw OOD
   - [X] Inventar-GUI
   - [ ] Inventar-Klasse
-  - [ ] Database (Jannis)
+  - [x] Database (Jannis)
   - [ ] GUI für den JOIN
 - Niklas
   - [x] OOA bzw OOD 
