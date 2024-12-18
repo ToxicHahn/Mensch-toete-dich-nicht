@@ -12,6 +12,7 @@ Mensch ärgere dich nicht on steroids
   - [ ] Database (Simon)
   - [ ] pause menü
   - [ ] start menü
+  - [ ] Bots
 - Emilio
   - [x] OOA bzw OOD
   - [ ] Spielfeld-GUI
@@ -25,10 +26,12 @@ Mensch ärgere dich nicht on steroids
   - [ ] GUI für den JOIN
 - Niklas
   - [x] OOA bzw OOD 
-  - [ ] Erste Designs für Spielerfiguren,
+  - [ ] Erste Designs für
+  - [ ] Spielerfiguren,
   - [x] Regelwerk-GUI
   - [ ] Chatroom-GUI
   - [ ] Chatroom Klasse
+  - [ ] bots
 - Adrian
   - [x] OOA bzw OOD
         
