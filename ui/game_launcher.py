@@ -1,14 +1,14 @@
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QScrollArea, QPushButton, QStatusBar, QMenuBar, QAction
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPalette, QColor, QFont
-from Regelwerk_GUI import MainWindow as RegelwerkWindow  # Importiere die Regelwerk-GUI
+from Regelwerk_GUI import MainWindow as RegelwerkWindow  
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        # Regelwerk-Fenster initialisieren
-        self.regelwerk_fenster = None  # Initialisierung des Regelwerk-Fensters auf None
+    
+        self.regelwerk_fenster = None 
 
         # Fenster-Eigenschaften
         self.setWindowTitle("Mensch ärgere dich nicht! Launcher")
@@ -35,7 +35,7 @@ class MainWindow(QMainWindow):
         self.create_button("Spiel hosten")
         self.create_button("Account erstellen")
         self.create_button("Login")
-        self.create_button("Regelwerk anzeigen")  # Regelwerk Button hinzufügen
+        self.create_button("Regelwerk anzeigen")  
 
         # Menüleiste erstellen
         self.create_menu()
@@ -68,7 +68,7 @@ class MainWindow(QMainWindow):
         self.central_layout.addWidget(button)
 
         if text == "Regelwerk anzeigen":
-            button.clicked.connect(self.open_regelwerk)  # Verknüpfe den Button mit der open_regelwerk Methode
+            button.clicked.connect(self.open_regelwerk)  
         else:
             button.clicked.connect(self.on_button_click)
 
@@ -121,9 +121,9 @@ class MainWindow(QMainWindow):
 
     def open_regelwerk(self):
         """Öffnet das Regelwerk-Fenster, falls noch nicht geöffnet"""
-        if self.regelwerk_fenster is None or not self.regelwerk_fenster.isVisible():  # Überprüfe, ob es geschlossen wurde
-            self.regelwerk_fenster = RegelwerkWindow()  # Erstelle eine Instanz der Regelwerk-GUI
-            self.regelwerk_fenster.show()  # Zeige das Regelwerk-Fenster an
+        if self.regelwerk_fenster is None or not self.regelwerk_fenster.isVisible():  
+            self.regelwerk_fenster = RegelwerkWindow()  
+            self.regelwerk_fenster.show()  
 
     def reset_regelwerk_fenster(self):
         """Setzt das Regelwerk-Fenster auf None, wenn es geschlossen wird."""
