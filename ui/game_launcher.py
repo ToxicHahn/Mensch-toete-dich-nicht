@@ -124,7 +124,7 @@ class MainWindow(QMainWindow):
             self.regelwerk_fenster = RegelwerkWindow()  
             self.regelwerk_fenster.show()  
 
-    def reset_regelwerk_fenster(self):
+    def reset_regelwerk(self):
         self.regelwerk_fenster = None
 
 # Hauptfunktion
