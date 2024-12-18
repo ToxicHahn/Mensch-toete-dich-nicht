@@ -20,7 +20,7 @@ Mensch ärgere dich nicht on steroids
   - [ ] Figuren Klasse
 - Simon
   - [x] OOA bzw OOD
-  - [ ] Inventar-GUI
+  - [X] Inventar-GUI
   - [ ] Inventar-Klasse
   - [ ] Database (Jannis)
   - [ ] GUI für den JOIN
