@@ -10,6 +10,7 @@ Mensch ärgere dich nicht on steroids
   - [ ] Shop-GUI
   - [ ] Shop
   - [ ] Database (Simon)
+  - [ ] pause menü
 - Emilio
   - [x] OOA bzw OOD
   - [ ] Spielfeld-GUI
