@@ -120,13 +120,11 @@ class MainWindow(QMainWindow):
         self.statusbar.showMessage(f"{sender.text()} Button Clicked")
 
     def open_regelwerk(self):
-        """Öffnet das Regelwerk-Fenster, falls noch nicht geöffnet"""
         if self.regelwerk_fenster is None or not self.regelwerk_fenster.isVisible():  
             self.regelwerk_fenster = RegelwerkWindow()  
             self.regelwerk_fenster.show()  
 
     def reset_regelwerk_fenster(self):
-        """Setzt das Regelwerk-Fenster auf None, wenn es geschlossen wird."""
         self.regelwerk_fenster = None
 
 # Hauptfunktion
