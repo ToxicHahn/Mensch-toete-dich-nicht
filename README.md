@@ -18,8 +18,11 @@ Mensch ärgere dich nicht on steroids
   - [ ] OOA bzw OOD
         
 
-        
-        
+## Roadmap
+- UML -> OOD
+- Klassen implementieren
+- 
+
         
       
 
