@@ -12,7 +12,7 @@ Mensch ärgere dich nicht on steroids
   - [ ] Database (Simon)
   - [ ] pause menü
   - [ ] start menü
-  - [ ] Bots
+  - [ ] Bots KI (Niklas)
 - Emilio
   - [x] OOA bzw OOD
   - [ ] Spielfeld-GUI
@@ -31,7 +31,7 @@ Mensch ärgere dich nicht on steroids
   - [x] Regelwerk-GUI
   - [ ] Chatroom-GUI
   - [ ] Chatroom Klasse
-  - [ ] bots
+  - [ ] bots KI (Jannis)
 - Adrian
   - [x] OOA bzw OOD
         
