@@ -24,6 +24,7 @@ Mensch ärgere dich nicht on steroids
   - [ ] Inventar-Klasse
   - [x] Database (Jannis)
   - [ ] GUI für den JOIN
+  - [ ] Oberklasse
 - Niklas
   - [x] OOA bzw OOD 
   - [ ] Erste Designs für
