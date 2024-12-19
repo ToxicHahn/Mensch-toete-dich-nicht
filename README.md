@@ -7,11 +7,9 @@ Mensch ärgere dich nicht on steroids
   - [x] Erste Klassen anlegen nach UML
 - Jannis
   - [x] OOA bzw OOD
-  - [ ] Shop-GUI
+  - [ ] Shop-GUI (Skin, Map, Marketplace)
   - [ ] Shop
   - [x] Database (Simon)
-  - [ ] pause menü
-  - [ ] start menü
   - [ ] Bots KI (Niklas)
 - Emilio
   - [x] OOA bzw OOD
@@ -27,8 +25,7 @@ Mensch ärgere dich nicht on steroids
   - [ ] Oberklasse
 - Niklas
   - [x] OOA bzw OOD 
-  - [ ] Erste Designs für
-  - [ ] Spielerfiguren,
+  - [ ] Erste Designs für Spielerfiguren,
   - [x] Regelwerk-GUI
   - [ ] Chatroom-GUI
   - [ ] Chatroom Klasse
