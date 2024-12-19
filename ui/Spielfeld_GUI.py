@@ -1,7 +1,9 @@
 import pygame
 import sys
 
-class Spielfeld:
+from Spielfeld import *
+
+class Spielfeld_GUI():
     def __init__(self):
         # Farben definieren
         self.weiss = (255, 255, 255)
@@ -20,32 +22,64 @@ class Spielfeld:
         pygame.init()
         self.screen = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
         pygame.display.set_caption("Mensch ärgere dich nicht")
-
-        # Startpunkte
-        self.startpunkte = [
-            {"farbe": self.rot, "spalte": 0, "reihe": 0},
-            {"farbe": self.blau, "spalte": 9, "reihe": 0},
-            {"farbe": self.gelb, "spalte": 0, "reihe": 9},
-            {"farbe": self.gruen, "spalte": 9, "reihe": 9},
-        ]
         
+
+        self.spielfeld = Spielfeld()
+        self.spielfeld.erstelleFeld(40)
+        # Zugriff auf Figuren der Farbe ...
+        # dor = self.figuren['rot']
+        # Zugriff auf Farben
+        #for figur in dor:
+        #    print(figur)
+
+        self.timerStart = 30  # Startzeit in Sekunden
+        self.timer = self.timerStart  # Aktueller Timer
+        self.font = pygame.font.Font(None, 36)
+        
+        self.zeit = pygame.time.Clock()
+        
+        #Startfelder
         self.startfeld = [
             {"farbe": self.rot, "spalte": 0, "reihe": 4},
             {"farbe": self.blau, "spalte": 6, "reihe": 0},
             {"farbe": self.gelb, "spalte": 4, "reihe": 10},
             {"farbe": self.gruen, "spalte": 10, "reihe": 6},
         ]
+        
 
     def run(self):
         """Startet die Hauptspiel-Schleife"""
+        letztZeit = pygame.time.get_ticks()
+
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
+                elif event.type == pygame.MOUSEBUTTONDOWN:  # Maus-Klick
+                    feld_pos = self.holeFeld(pygame.mouse.get_pos())
+                    if feld_pos:
+                        print(f"Feld {feld_pos}")
+                    else:
+                        print("außerhalb des Spielfeldes")
+            
+            aktZeit = pygame.time.get_ticks()
+            if aktZeit - letztZeit >= 1000:  # 1000 milliseconds = 1 second
+                letztZeit = aktZeit
+                if self.timer > 0:
+                    self.timer -= 1
+                else:
+                    self.timer = self.timerStart
 
             self.zeichneBrett()
+            self.zeigeTimer()
+            #self.spielfeld.platziereFiguren(self.figuren)
+            
+            #print(self.figuren['rot'][0].holePosition())
+
             pygame.display.flip()
+            
+            
 
     def zeichneBrett(self):
         """Zeichnet das komplette Spielfeld"""
@@ -67,28 +101,24 @@ class Spielfeld:
                 )
 
                 # Laufpfade: Hauptlinien
-                if self.pfad(reihe, spalte):
-                    pygame.draw.circle(self.screen, self.schwarz, rect.center, self.kreisradius)
-                    pygame.draw.circle(self.screen, self.weiss, rect.center, self.kreisradius-3)
+                for feld in self.spielfeld._SFeld:
+                    #print(feld.position)
+                    if feld.position == (reihe, spalte):
+                        pygame.draw.circle(self.screen, self.schwarz, rect.center, self.kreisradius)
+                        pygame.draw.circle(self.screen, self.weiss, rect.center, self.kreisradius-3)
 
 
         # Start- und Zielfelder zeichnen
         self.zeichneStartUndZiel()
 
-    def pfad(self, reihe, spalte):
-        """Definiert die Pfadfelder (Positionen der weißen Kreise)"""
-        pfad_coords = [
-            (0,4), (0,5), (1,4), (1,6),
-            (2,4), (2,6), (3,4), (3,6),
-            (4,1), (4,2), (4,3), (4,4), 
-            (4,6), (4,7), (4,8), (4,9),
-            (4,10), (5,0), (5,10), (6,0),
-            (6,1), (6,2), (6,3), (6,4),
-            (6,6), (6,7), (6,8), (6,9),
-            (7,4), (7,6), (8,4), (8,6),
-            (9,4), (9,6), (10,5), (10,6)
-        ]
-        return (reihe, spalte) in pfad_coords
+        self.zeichneFiguren()
+        
+    def zeigeTimer(self):
+        """Zeigt den Countdown-Timer auf dem Bildschirm an"""
+        timer_text = self.font.render(f"Zeit übrig: {self.timer}s", True, self.schwarz)
+        self.screen.blit(timer_text, (10, 10))
+
+    
     
     def Startfeld(self, spalte, reihe, farbe):
         """Zeichnet individuelle Startfelder mit der zugehörigen Farbe."""
@@ -97,41 +127,74 @@ class Spielfeld:
         pygame.draw.circle(self.screen, farbe, (center_x, center_y), self.kreisradius)
 
     
+    
     def zeichneStartUndZiel(self):
         """Zeichnet Start- und Zielfelder"""
-        for feld in self.startpunkte:
-            self.zeichneStart(feld["spalte"], feld["reihe"], feld["farbe"])
+        for farbe, positionen in self.spielfeld.startfelder.items():
+            for (reihe, spalte) in positionen:
+                self.zeichneStart(spalte, reihe, self.uebersetzeFarbe(farbe))
 
-        for feld in self.startfeld:
-            self.Startfeld(feld["spalte"], feld["reihe"], feld["farbe"])
+        for farbe, positionen in self.spielfeld.zielfelder.items():
+            for (reihe, spalte) in positionen:
+                self.zeichneZiel(spalte, reihe, self.uebersetzeFarbe(farbe))
         
-        
-        # Zielfelder
-        self.zeichneZiel(self.rot, "horizontal", (5, 1))
-        self.zeichneZiel(self.blau, "vertikal", (1, 5))
-        self.zeichneZiel(self.gelb, "vertikal", (6, 5))
-        self.zeichneZiel(self.gruen, "horizontal", (5, 6))
 
-    def zeichneStart(self, start_spalte, start_reihe, farbe):
-        """Zeichnet die 4 Startfelder als farbige Kreise"""
-        for i in range(2):
-            for j in range(2):
-                center_x = self.brett_start_x + (start_spalte + i) * self.feldgroesse + self.feldgroesse / 2
-                center_y = self.brett_start_y + (start_reihe + j) * self.feldgroesse + self.feldgroesse / 2
-                pygame.draw.circle(self.screen, farbe, (center_x, center_y), self.kreisradius)
+    def zeichneStart(self, spalte, reihe, farbe):
+        """Zeichnet Startfelder"""
+        center_x = self.brett_start_x + spalte * self.feldgroesse + self.feldgroesse / 2
+        center_y = self.brett_start_y + reihe * self.feldgroesse + self.feldgroesse / 2
+        pygame.draw.circle(self.screen, farbe, (center_x, center_y), self.kreisradius)
 
-    def zeichneZiel(self, farbe, orientation, start):
-        """Zeichnet die Zielfelder."""
-        reihe, spalte = start
-        for i in range(4):
-            if orientation == "horizontal":
-                center_x = self.brett_start_x + (spalte + i) * self.feldgroesse + self.feldgroesse / 2
-                center_y = self.brett_start_y + reihe * self.feldgroesse + self.feldgroesse / 2
-            else:
-                center_x = self.brett_start_x + spalte * self.feldgroesse + self.feldgroesse / 2
-                center_y = self.brett_start_y + (reihe + i) * self.feldgroesse + self.feldgroesse / 2
-            pygame.draw.circle(self.screen, farbe, (center_x, center_y), self.kreisradius)
+    def zeichneZiel(self, spalte, reihe, farbe):
+        """Zeichnet Zielfelder"""
+        center_x = self.brett_start_x + spalte * self.feldgroesse + self.feldgroesse / 2
+        center_y = self.brett_start_y + reihe * self.feldgroesse + self.feldgroesse / 2
+        pygame.draw.circle(self.screen, farbe, (center_x, center_y), self.kreisradius)
+
+    def zeichneFiguren(self):
+        """Zeichnet die Figuren auf ihren aktuellen Positionen"""
+        pass
+
+
+    def holePosition(self):
+        pass
+
+    def uebersetzeFarbe(self, farbe):
+        """gibt die Farbe als globale Variable zurück"""
+        farben = {
+            'rot': self.rot,
+            'blau': self.blau,
+            'gelb': self.gelb,
+            'gruen': self.gruen,
+        }
+        return farben.get(farbe, self.schwarz)
+
+    def holeFeld(self, maus_pos):
+        """Gibt die Feldposition (reihe, spalte) zurück anhand der GUI
+            Hinweis: holt nur alle Felder außer Start- und Zielfelder
+        """
+        x, y = maus_pos
+
+        # Berechnung der Feldkoordinaten
+        spalte = int((x - self.brett_start_x) // self.feldgroesse)
+        reihe = int((y - self.brett_start_y) // self.feldgroesse)
+
+        # Überprüfung ob die berechnete Position innerhalb des Spielfeldes liegt
+        if 0 <= spalte < self.groesse and 0 <= reihe < self.groesse:
+            for feld in self.spielfeld._SFeld:
+                if feld.holePosition() == (reihe, spalte):
+                    if feld.ist_start == True:
+                        print("STARTFELD")
+                        print(feld.farbe)
+                    elif feld.ist_ziel == True:
+                        print("ZIELFELD")
+                        print(feld.farbe)
+                    return reihe, spalte
+        else:
+            return None  # Maus war außerhalb des Spielfeldes
+
 
 if __name__ == "__main__":
-    spielfeld = Spielfeld()
+    spielfeld = Spielfeld_GUI()
     spielfeld.run()
+    self.zeit.tick(30)
