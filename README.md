@@ -25,7 +25,7 @@ Mensch ärgere dich nicht on steroids
   - [ ] Oberklasse
 - Niklas
   - [x] OOA bzw OOD 
-  - [ ] Erste Designs für Spielerfiguren,
+  - [ ] Designs (Skins, Fallen, Figuren)
   - [x] Regelwerk-GUI
   - [ ] Chatroom-GUI
   - [ ] Chatroom Klasse
