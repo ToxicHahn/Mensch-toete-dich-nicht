@@ -8,7 +8,7 @@ Mensch ärgere dich nicht on steroids
 - Jannis
   - [x] OOA bzw OOD
   - [x] Shop-GUI
-  - [ ] Shop
+  - [x] Shop
   - [x] Database (Simon)
   - [ ] Bots KI (Niklas)
 - Emilio
