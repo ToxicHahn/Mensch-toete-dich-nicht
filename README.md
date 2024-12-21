@@ -7,7 +7,7 @@ Mensch ärgere dich nicht on steroids
   - [x] Erste Klassen anlegen nach UML
 - Jannis
   - [x] OOA bzw OOD
-  - [ ] Shop-GUI
+  - [x] Shop-GUI
   - [ ] Shop
   - [x] Database (Simon)
   - [ ] Bots KI (Niklas)
