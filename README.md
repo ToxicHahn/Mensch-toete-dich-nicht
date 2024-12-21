@@ -21,8 +21,8 @@ Mensch ärgere dich nicht on steroids
   - [X] Inventar-GUI
   - [ ] Inventar-Klasse
   - [x] Database (Jannis)
-  - [ ] GUI für den JOIN
-  - [ ] Oberklasse
+  - [x] GUI für den JOIN
+  - [x] Oberklasse
 - Niklas
   - [x] OOA bzw OOD 
   - [ ] Designs (Skins, Fallen, Figuren)
@@ -32,6 +32,7 @@ Mensch ärgere dich nicht on steroids
   - [ ] bots KI (Jannis)
 - Adrian
   - [x] OOA bzw OOD
+  - [ ] game launcher mit oberklasse neu machen
         
 
 ## Roadmap
