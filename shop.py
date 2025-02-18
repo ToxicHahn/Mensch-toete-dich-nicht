@@ -12,128 +12,114 @@ class ItemShop(QMainWindow):
         super().__init__()
 
         self.player = player
-        
-        self.db = Database(1)
-        self.cursor = self.db.connection.cursor()
 
-        self.db = DatabasePreGame(1)
-        self.cursorPreGame = self.db.connection.cursor()
+        # Verbindung nur einmal herstellen und gemeinsam nutzen
+        self.connection = sqlite3.connect(f"inventar.db")
+        self.cursor = self.connection.cursor()
 
+        self.db = Database(1, self.player)
+        self.dbPreGame = DatabasePreGame(1, self.player)
+
+        # Überprüfen, ob Coins vorhanden sind
         query = f'SELECT coins FROM coin WHERE username == ?;'
         self.cursor.execute(query, (self.player,))
-        coin = self.cursor.fetchall()[0][0]
+        coin = self.cursor.fetchone()
+        if coin:
+            coins_text = f'Münzen: {coin[0]}'
+        else:
+            coins_text = "Münzen: 0"
 
-        coins_text = f'Münzen: {coin}'
         self.gui = ober_gui("Item - Shop / Inventar", optional_text=coins_text)
-
         self.updateCoins()
-
-        self.gui.show() 
+        self.gui.show()
 
         produkte = ["Freeze", "Bombe", "Atombombe", "Zoll"]
-
-        beschreibungen = []
-        
         for item in produkte:
             query = f'SELECT beschreibung FROM {item};'
-            self.cursorPreGame.execute(query)
-            beschreibung1 = self.cursorPreGame.fetchall()
-            beschreibungen.append(beschreibung1)
+            self.cursor.execute(query)
+            beschreibung1 = self.cursor.fetchone()
+            beschreibung_text = beschreibung1[0] if beschreibung1 else "Keine Beschreibung verfügbar."
 
-            beschreibung_text = beschreibung1[0][0] if beschreibung1 else "Keine Beschreibung verfügbar."
-
-            # Button mit Bezug auf das Produkt erstellen
             self.gui.erstelle_container(
-            title=item,
-            content_text=beschreibung_text,
-            buttons=[
-                ("Kaufen", partial(self.button_kaufen, item)),
-                ("Benutzen", partial(self.button_kaufen, item))
-            ],
-            text_ueber_buttons="Aktionen:",
-            minimum_height=400,
-        )
-
-
+                title=item,
+                content_text=beschreibung_text,
+                buttons=[
+                    ("Kaufen", partial(self.button_kaufen, item)),
+                    ("Benutzen", partial(self.button_kaufen, item))
+                ],
+                text_ueber_buttons="Aktionen:",
+                minimum_height=400,
+            )
 
     def button_kaufen(self, item):
-        query = f'SELECT coins FROM coin WHERE username == ?;'
-        self.cursor.execute(query, (self.player,))
-        coin = self.cursor.fetchall()
-        anzCoins = coin [0][0]
-
-        iteml = item.lower()
-        query = f'SELECT kosten FROM {iteml};'
-        self.cursor.execute(query)
-        kosten = self.cursor.fetchall()
-        kostenZ = kosten[0][0]
-
-        if anzCoins > kostenZ or anzCoins == kostenZ:
-
-            #Limit des Spielers ermitteln
-            query = f'SELECT max FROM max{item} WHERE player == ?;'
+        try:
+            # Coins des Spielers abrufen
+            query = f'SELECT coins FROM coin WHERE username == ?;'
             self.cursor.execute(query, (self.player,))
-            maxi = self.cursor.fetchall()
+            coin = self.cursor.fetchone()
+            if not coin:
+                self.show_error_message(1)  # Zu wenig Münzen
+                return
+            anzCoins = coin[0]
 
-            #Limit des Items ermitteln
-            query = f'SELECT max FROM {item};'
+            # Kosten des Items abrufen
+            query = f'SELECT kosten FROM {item.lower()};'
             self.cursor.execute(query)
-            maxi2 = self.cursor.fetchall()
-            
-            if maxi < maxi2:
-                #Anzahl Coins des Spielers anpassen
-                anzCoinsNeu = anzCoins - kostenZ
-                query = f'UPDATE coin SET coins = {anzCoinsNeu} WHERE username == ?;'
-                self.cursor.execute(query, (self.player,))
+            kosten = self.cursor.fetchone()
+            if not kosten:
+                self.show_error_message(1)  # Zu wenig Münzen
+                return
+            kostenZ = kosten[0]
 
-                query = f'SELECT coins FROM coin WHERE username == ?;'
-                self.cursor.execute(query, (self.player,))
-                coin = self.cursor.fetchall()
-                print(f'HHH{coin}')
-                
-                self.updateGUI()
-                
-                #Limit des Spieler erhöhen
-                maxiNEU = maxi[0][0] + 1
-                query = f'UPDATE max{item} SET max = {maxiNEU} WHERE player == ?;'
-                self.cursor.execute(query, (self.player,))
-
-                #Check
+            if anzCoins >= kostenZ:
+                # Inventar und Limits prüfen und aktualisieren
                 query = f'SELECT max FROM max{item} WHERE player == ?;'
                 self.cursor.execute(query, (self.player,))
-                maxi = self.cursor.fetchall()
+                maxi = self.cursor.fetchone()
 
-                #Inventar holen
-                iteml = item.lower()
-                query = f'SELECT {iteml} FROM inventar WHERE username == ?;'
-                self.cursor.execute(query, (self.player,))
-                maxi = self.cursor.fetchall()
+                query = f'SELECT max FROM {item};'
+                self.cursor.execute(query)
+                maxi2 = self.cursor.fetchone()
 
-                #Inventar updaten
-                maxiNEU = maxi[0][0] + 1
-                query = f'UPDATE inventar SET {iteml} = {maxiNEU} WHERE username == ?;'
-                self.cursor.execute(query, (self.player,))
+                if maxi and maxi[0] < maxi2[0]:
+                    # Coins des Spielers aktualisieren
+                    anzCoinsNeu = anzCoins - kostenZ
+                    query = f'UPDATE coin SET coins = ? WHERE username == ?;'
+                    self.cursor.execute(query, (anzCoinsNeu, self.player))
+                    self.connection.commit()
 
-                #Check
-                query = f'SELECT {item} FROM inventar WHERE username == ?;'
-                self.cursor.execute(query, (self.player,))
-                maxi = self.cursor.fetchall()
+                    # Limit erhöhen
+                    maxiNEU = maxi[0] + 1
+                    query = f'UPDATE max{item} SET max = ? WHERE player == ?;'
+                    self.cursor.execute(query, (maxiNEU, self.player))
+                    self.connection.commit()
 
-            elif maxi == maxi2:
-                self.show_error_message(0)
+                    # Inventar aktualisieren
+                    query = f'SELECT {item.lower()} FROM inventar WHERE username == ?;'
+                    self.cursor.execute(query, (self.player,))
+                    inventar = self.cursor.fetchone()
+                    if inventar:
+                        inventarNeu = inventar[0] + 1
+                        query = f'UPDATE inventar SET {item.lower()} = ? WHERE username == ?;'
+                        self.cursor.execute(query, (inventarNeu, self.player))
+                        self.connection.commit()
 
-        elif anzCoins < kostenZ:
-            self.show_error_message(1)
+                    self.updateGUI()
+                else:
+                    self.show_error_message(0)  # Inventar voll
+            else:
+                self.show_error_message(1)  # Zu wenig Münzen
+        except sqlite3.Error as e:
+            print(f"SQLite Fehler: {e}")
+            self.connection.rollback()
 
     def closeEvent(self, event):
-        self.db.close_connection()
+        # Verbindung sauber schließen
+        self.connection.close()
         event.accept()
 
     def show_error_message(self, index):
-        # Erstelle ein Fenster
-        window = QWidget() 
-
-        # Erstelle eine QMessageBox für den Fehler
+        window = QWidget()
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Critical)
         if index == 0:
@@ -144,41 +130,18 @@ class ItemShop(QMainWindow):
         msg.exec_()
 
     def updateCoins(self):
-
         query = f'SELECT coins FROM coin WHERE username == ?;'
-        self.cursorPreGame.execute(query, (self.player,))
-        coins = self.cursorPreGame.fetchall()
-        coinsRN = coins[0][0]
-        
-        return coinsRN
+        self.cursor.execute(query, (self.player,))
+        coins = self.cursor.fetchone()
+        return coins[0] if coins else 0
 
     def updateGUI(self):
         query = f'SELECT coins FROM coin WHERE username == ?;'
         self.cursor.execute(query, (self.player,))
-        coin = self.cursor.fetchall()[0][0]
+        coin = self.cursor.fetchone()[0]
 
         coins_text = f'Münzen: {coin}'
         self.gui.update_optional_text(coins_text)
-
-        produkte = ["Freeze", "Bombe", "Atombombe", "Zoll"]
-        beschreibungen = []
-        for item in produkte:
-            query = f'SELECT beschreibung FROM {item};'
-            self.cursorPreGame.execute(query)
-            beschreibung1 = self.cursorPreGame.fetchall()
-            beschreibungen.append(beschreibung1)
-
-            beschreibung_text = beschreibung1[0][0] if beschreibung1 else "Keine Beschreibung verfügbar."
-
-            self.gui.aktualisiere_container(
-                title=item,
-                content_text=beschreibung_text,
-                buttons=[("Kaufen", partial(self.button_kaufen, item))],
-                text_ueber_buttons="Aktionen:",
-                minimum_height=400,
-            )
-
-        self.gui.show()
 
 
 # Hauptprogramm ausführen

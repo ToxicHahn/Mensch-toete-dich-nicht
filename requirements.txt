@@ -1,4 +1,1 @@
-pygame
-pyside
-sqlite3
-bcrypt
+PyQt5

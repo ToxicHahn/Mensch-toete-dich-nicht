@@ -1,26 +1,24 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QScrollArea, QPushButton, QStatusBar
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QScrollArea, QPushButton, QToolBar, QAction
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont
 
-class MainWindow(QMainWindow):
-    def __init__(self):
-        super().__init__()
+class Regelwerk_GUI(QWidget):  # Von QWidget erben
+    def __init__(self, username, connection, parent=None):
+        super().__init__(parent)
 
-        # Fenster-Eigenschaften
-        self.setWindowTitle("Regelwerk - Mensch toete dich nicht")
-        self.setGeometry(100, 100, 800, 600)
+        # Layout für das Regelwerk-Widget
+        self.layout = QVBoxLayout()
+        self.setLayout(self.layout)
 
-        # Hauptlayout
-        self.centralwidget = QWidget()
-        self.setCentralWidget(self.centralwidget)
-        self.main_layout = QVBoxLayout(self.centralwidget)
-        self.main_layout.setContentsMargins(20, 20, 20, 20)
+        # Tool-Bar mit Zurück-Button
+        self.add_toolbar()
 
         # Titel
         self.title_label = QLabel("Mensch toete dich nicht - Regelwerk", self)
         self.title_label.setAlignment(Qt.AlignCenter)
         self.title_label.setFont(QFont("Arial", 24, QFont.Bold))
-        self.main_layout.addWidget(self.title_label)
+        self.title_label.setStyleSheet("color: white;")
+        self.layout.addWidget(self.title_label)
 
         # Scroll-Bereich für Regeln
         self.scroll_area = QScrollArea(self)
@@ -45,27 +43,33 @@ class MainWindow(QMainWindow):
             rule_label.setWordWrap(True)
             rule_label.setAlignment(Qt.AlignCenter)
             rule_label.setFont(QFont("Arial", 18))
-            rule_label.setStyleSheet("margin: 20px 0;")
+            rule_label.setStyleSheet("margin: 20px 0; color: white;")
             self.scroll_layout.addWidget(rule_label)
 
         self.scroll_content.setLayout(self.scroll_layout)
         self.scroll_area.setWidget(self.scroll_content)
-        self.main_layout.addWidget(self.scroll_area)
+        self.layout.addWidget(self.scroll_area)
 
-        # Schließen-Button
-        self.close_button = QPushButton("Schließen", self)
-        self.close_button.setFont(QFont("Arial", 16))
-        self.close_button.setStyleSheet("padding: 10px; background-color: #007AFF; color: white; border-radius: 5px;")
-        self.close_button.clicked.connect(self.close)
-        self.main_layout.addWidget(self.close_button, alignment=Qt.AlignRight)
+    def add_toolbar(self):
+        """Erstellt eine Tool-Bar mit Zurück-Button."""
+        toolbar = QToolBar("Navigation")
+        back_action = QAction("Zurück", self)
+        back_action.triggered.connect(self.back)
+        toolbar.setStyleSheet("""
+            QToolBar QToolButton {
+                background-color: white;
+                color: black;
+                font-weight: bold;
+                border-radius: 10px;  
+                padding: 5px 15px;     
+                border: 1px solid black; 
+            }""")
+        toolbar.addAction(back_action)
 
-        # Statusleiste
-        self.statusbar = QStatusBar()
-        self.setStatusBar(self.statusbar)
-
-# Hauptfunktion
-if __name__ == "__main__":
-    app = QApplication([])
-    window = MainWindow()
-    window.show()
-    app.exec_()
+        # Tool-Bar als Widget hinzufügen
+        self.layout.addWidget(toolbar)
+    
+    def back(self):
+        parent_widget = self.parent()
+        if parent_widget:
+            parent_widget.setCurrentIndex(0)
